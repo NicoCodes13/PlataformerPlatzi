@@ -38,10 +38,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D other) //* Detecta la ausencia de colisiones 
     {
-        if (jumpCounter == 1) //*la falta de colision es por que se realizo un salto?
-            maxJumps = 2;
-        else
-            maxJumps = 1; //* si no fue un salto solo puedes saltar una vez en el aire 
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            if (jumpCounter == 1) //*la falta de colision es por que se realizo un salto?
+                maxJumps = 2;
+            else
+                maxJumps = 1; //* si no fue un salto solo puedes saltar una vez en el aire 
+        }
     }
 
 }
