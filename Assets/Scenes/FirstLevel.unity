@@ -284,8 +284,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 1.272941
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -308,7 +308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRb: {fileID: 308046435}
   speed: 3
-  jumpForce: 250
+  jumpForce: 430
+  playerAnim: {fileID: 308046437}
 --- !u!95 &308046437
 Animator:
   serializedVersion: 3
@@ -432,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7171745, y: -10.044795, z: -9.89}
+  m_LocalPosition: {x: 2.7146006, y: -10.0447035, z: -9.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
