@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     int jumpCounter = 0;
     int maxJumps = 1;
 
+    public Animator playerAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +24,29 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         playerRb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, playerRb.velocity.y);
+        playerRb.AddForce(new Vector2(0, Input.GetAxis("Jump") * jumpForce));
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCounter < maxJumps)
+        if (Input.GetAxis("Horizontal") == 0)
         {
-            playerRb.AddForce(Vector2.up * jumpForce);
-            jumpCounter += 1;
+            playerAnim.SetBool("isWalking", false);
         }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            playerAnim.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
+            playerAnim.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        // if (Input.GetKeyDown(KeyCode.Space) && jumpCounter < maxJumps)
+        // {
+        //     playerRb.AddForce(Vector2.up * jumpForce);
+        //     jumpCounter += 1;
+        //     playerAnim.SetTrigger("Jump");
+        // }
     }
 
     private void OnCollisionEnter2D(Collision2D other) //*detecta la colison contra otro Rb
