@@ -7,7 +7,7 @@ public class Collectable : MonoBehaviour
 {
     public static int collectableQuantity = 0;
 
-    public Text collectableText;
+    Text collectableText;
     ParticleSystem collectableParticle;
 
     AudioSource collectableAudio;
@@ -16,6 +16,7 @@ public class Collectable : MonoBehaviour
     {
         collectableParticle = GameObject.Find("CollectableParticle").GetComponent<ParticleSystem>();
         collectableAudio = GetComponentInParent<AudioSource>();
+        collectableText = GameObject.Find("CollectableQuantityText").GetComponent<Text>();
     }
 
     // Update is called once per frame
