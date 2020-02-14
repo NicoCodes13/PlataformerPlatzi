@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    
+
     Rigidbody2D enemyRB;
     SpriteRenderer enemySpriteRend;
     Animator enemyAnim;
+    ParticleSystem enemyparticle;
+    AudioSource enemyAudio;
+
     float timeBeforeChange;
     public float delay = 0.5f;
     public float speed = 0.3f;
@@ -17,6 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
         enemyRB = GetComponent<Rigidbody2D>();
         enemySpriteRend = GetComponent<SpriteRenderer>();
         enemyAnim = GetComponent<Animator>();
+        enemyparticle = GameObject.Find("EnemyParticle").GetComponent<ParticleSystem>();
+        enemyAudio = GetComponentInParent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,12 +29,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         enemyRB.velocity = Vector2.right * speed;
 
-        if(speed < 0)
+        if (speed < 0)
+        {
             enemySpriteRend.flipX = true;
-        else if(speed > 0)
-            enemySpriteRend.flipX =false;
+        }
+        else if (speed > 0)
+            enemySpriteRend.flipX = false;
 
-        if(timeBeforeChange < Time.time)
+        if (timeBeforeChange < Time.time)
         {
             speed *= -1;
             timeBeforeChange = Time.time + delay;
@@ -38,18 +45,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            if(transform.position.y + 0.3f < other.transform.position.y)
+            if (transform.position.y + 0.3f < other.transform.position.y)
             {
+
                 enemyAnim.SetBool("isDead", true);
-                
+
             }
         }
     }
 
     public void DesableEnemy()
     {
+        enemyAudio.Play();
+        enemyparticle.transform.position = transform.position;
+        enemyparticle.Play();
         gameObject.SetActive(false);
         //* Destroy(gameObject); eliminando de la herarquia 
     }
