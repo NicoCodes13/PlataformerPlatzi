@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     int maxJumps = 1;
     public bool inFloor = false;
 
+    public bool isGrounded = true;
+
     public Animator playerAnim;
     AudioSource playerSounds;
     AudioSource steps;
@@ -63,12 +65,14 @@ public class PlayerMovement : MonoBehaviour
         playerRb.AddForce(Vector2.up * jumpForce);
         jumpCounter += 1;
         playerAnim.SetTrigger("Jump");
+        isGrounded = false;
     }
 
     private void OnCollisionEnter2D(Collision2D other) //*detecta la colison contra otro Rb
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            isGrounded = true;
             inFloor = true;
             jumpCounter = 0;
             maxJumps = 2;
@@ -91,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
 
     void SoundSteps()
     {
-        Debug.Log(playerRb.velocity.x.ToString());
         if (Input.GetAxis("Horizontal") != 0 && jumpCounter == 0 && maxJumps == 2 && inFloor)
         {
             steps.mute = false;
